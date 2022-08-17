@@ -1,3 +1,4 @@
+import { Navbar } from "components/ui";
 import Head from "next/head";
 import React, { FC, PropsWithChildren } from "react";
 
@@ -23,7 +24,9 @@ export const ShopLayout: FC<PropsWithChildren<Props>> = ({
         {imageFullUrl && <meta name="og:image" content={imageFullUrl} />}
       </Head>
 
-      <nav>{/* TODO: navbar */}</nav>
+      <nav>
+        <Navbar />
+      </nav>
       {/* TODO: sidebar */}
       <main
         style={{
