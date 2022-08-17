@@ -1,4 +1,4 @@
-import { Navbar } from "components/ui";
+import { Navbar, SideMenu } from "components/ui";
 import Head from "next/head";
 import React, { FC, PropsWithChildren } from "react";
 
@@ -27,7 +27,7 @@ export const ShopLayout: FC<PropsWithChildren<Props>> = ({
       <nav>
         <Navbar />
       </nav>
-      {/* TODO: sidebar */}
+      <SideMenu />
       <main
         style={{
           margin: "80px auto",
