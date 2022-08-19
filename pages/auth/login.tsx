@@ -34,11 +34,11 @@ const LoginPage = () => {
               Sign in
             </Button>
           </Grid>
-        </Grid>
-        <Grid item xs={12} display="flex" justifyContent="end">
-          <NextLink href="/auth/register" passHref >
-            <Link underline="always">Don't have an account? Sign up</Link>
-          </NextLink>
+          <Grid item xs={12} display="flex" justifyContent="end">
+            <NextLink href="/auth/register" passHref>
+              <Link underline="always">Dont have an account? Sign up</Link>
+            </NextLink>
+          </Grid>
         </Grid>
       </Box>
     </AuthLayout>
