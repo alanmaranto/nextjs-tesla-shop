@@ -1,16 +1,8 @@
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { ShopLayout } from "components/layouts";
 import { ProductList } from "components/products";
 import { initialData } from "database/products";
 import type { NextPage } from "next";
-
-initialData;
 
 const Home: NextPage = () => {
   return (

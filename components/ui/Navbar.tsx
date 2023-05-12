@@ -16,7 +16,7 @@ export const Navbar = () => {
   return (
     <AppBar>
       <Toolbar>
-        <NextLink href="/" passHref>
+        <NextLink href="/" passHref legacyBehavior>
           <Link display="flex" alignItems="center">
             <Typography variant="h6">Tesla |</Typography>
             <Typography sx={{ ml: 0.5 }}>Shop</Typography>
@@ -24,17 +24,17 @@ export const Navbar = () => {
         </NextLink>
         <Box flex={1} />
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <NextLink href="/category/men" passHref>
+          <NextLink href="/category/men" passHref legacyBehavior>
             <Link>
               <Button>Men</Button>
             </Link>
           </NextLink>
-          <NextLink href="/category/men" passHref>
+          <NextLink href="/category/men" passHref legacyBehavior>
             <Link>
               <Button>Women</Button>
             </Link>
           </NextLink>
-          <NextLink href="/category/men" passHref>
+          <NextLink href="/category/men" passHref legacyBehavior>
             <Link>
               <Button>Kids</Button>
             </Link>
@@ -44,7 +44,7 @@ export const Navbar = () => {
         <IconButton>
           <SearchOutlined />
         </IconButton>
-        <NextLink href="/cart">
+        <NextLink href="/cart" legacyBehavior>
           <Link>
             <IconButton>
               <Badge badgeContent={2} color="secondary">
@@ -53,7 +53,7 @@ export const Navbar = () => {
             </IconButton>
           </Link>
         </NextLink>
-        <NextLink href="/" passHref>
+        <NextLink href="/" passHref legacyBehavior>
           <Link>
             <Button>Menú</Button>
           </Link>
