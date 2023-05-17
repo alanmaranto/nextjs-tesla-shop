@@ -37,7 +37,8 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
-//TODO: Create mongo index to search between columns
+productSchema.index({ title: "text", tags: "text"})
+
 const Product: Model<IProduct> =
   models.Product || model("Product", productSchema);
 
