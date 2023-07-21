@@ -7,23 +7,32 @@ import {
   InputAdornment,
   List,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
 } from "@mui/material";
 import { SearchOutlined } from "@mui/icons-material";
-import { adminMenu, clientMenu, icons, MenuItem } from "./constants";
-import { FC } from "react";
+import { /* adminMenu, */ clientMenu, icons, MenuItem } from "./constants";
+import { FC, useContext } from "react";
+import { UiContext } from "context";
+import { useRouter } from "next/router";
 
 interface Props {
   data: MenuItem[];
+  navigateTo: (url: string) => void;
 }
 
-const ListItems: FC<Props> = ({ data }) => {
-  const items = data.map(({ label, icon, properties }) => {
+const ListItems: FC<Props> = ({ data, navigateTo }) => {
+  const items = data.map(({ label, icon, properties, href }) => {
     const Icon = icons[icon];
     return (
-      <ListItem button key={label} {...properties}>
+      <ListItem
+        button
+        onClick={() => navigateTo(href)}
+        key={label}
+        {...properties}
+      >
         <ListItemIcon>
           <Icon />
         </ListItemIcon>
@@ -36,9 +45,18 @@ const ListItems: FC<Props> = ({ data }) => {
 };
 
 export const SideMenu = () => {
+  const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
+  const router = useRouter();
+
+  const navigateTo = (url: string) => {
+    router.push(url)
+    toggleSideMenu();
+  };
+
   return (
     <Drawer
-      open={false}
+      open={isMenuOpen}
+      onClose={toggleSideMenu}
       anchor="right"
       sx={{ backdropFilter: "blur(4px)", transition: "all 0.5s ease-out" }}
     >
@@ -57,10 +75,10 @@ export const SideMenu = () => {
               }
             />
           </ListItem>
-          <ListItems data={clientMenu} />
+          <ListItems data={clientMenu} navigateTo={navigateTo} />
           <Divider />
           <ListSubheader>Admin Panel</ListSubheader>
-          <ListItems data={adminMenu} />
+          {/* <ListItems data={adminMenu} navigate={navigateTo} /> */}
         </List>
       </Box>
     </Drawer>

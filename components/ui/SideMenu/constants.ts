@@ -15,6 +15,7 @@ export interface MenuItem {
   label: string;
   icon: keyof typeof icons;
   properties?: Object;
+  href: string; // make mandaytory
 }
 
 export const icons = {
@@ -31,20 +32,21 @@ export const icons = {
 };
 
 export const clientMenu: MenuItem[] = [
-  {
+/*   {
     label: "Profile",
     icon: "AccountCircleOutlined",
   },
   {
     label: "My Orders",
     icon: "ConfirmationNumberOutlined",
-  },
+  }, */
   {
     label: "Men",
     icon: "MaleOutlined",
     properties: {
       sx: { display: { xs: "", sm: "none" } },
     },
+    href: "/category/men"
   },
   {
     label: "Women",
@@ -52,6 +54,8 @@ export const clientMenu: MenuItem[] = [
     properties: {
       sx: { display: { xs: "", sm: "none" } },
     },
+    href: "/category/women"
+
   },
   {
     label: "Kids",
@@ -59,18 +63,19 @@ export const clientMenu: MenuItem[] = [
     properties: {
       sx: { display: { xs: "", sm: "none" } },
     },
+    href: "/category/kids"
   },
-  {
+/*   {
     label: "Sign In",
     icon: "VpnKeyOutlined",
   },
   {
     label: "Log Out",
     icon: "LoginOutlined",
-  },
+  }, */
 ];
 
-export const adminMenu: MenuItem[] = [
+/* export const adminMenu: MenuItem[] = [
   {
     label: "Products",
     icon: "CategoryOutlined",
@@ -84,3 +89,4 @@ export const adminMenu: MenuItem[] = [
     icon: "AdminPanelSettings",
   },
 ];
+ */
