@@ -17,13 +17,27 @@ export const getProductsBySlug = async (
 };
 
 export interface ProductSlug {
-  slug: string
+  slug: string;
 }
 
 export const getAllProductSlugs = async (): Promise<ProductSlug[]> => {
-  await db.connect()
-  const slugs = await Product.find().select('slug -_id').lean()
+  await db.connect();
+  const slugs = await Product.find().select("slug -_id").lean();
   await db.disconnect();
 
-  return slugs
-}
+  return slugs;
+};
+
+export const getProductsByTerm = async (term: string): Promise<IProduct[]> => {
+  term = term.toString().toLowerCase();
+
+  await db.connect();
+  const products = await Product.find({
+    $text: { $search: term },
+  })
+    .select("title images price inStock slug -_id")
+    .lean();
+  await db.disconnect();
+
+  return products;
+};
