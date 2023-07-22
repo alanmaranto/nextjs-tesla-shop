@@ -15,3 +15,15 @@ export const getProductsBySlug = async (
 
   return JSON.parse(JSON.stringify(product));
 };
+
+export interface ProductSlug {
+  slug: string
+}
+
+export const getAllProductSlugs = async (): Promise<ProductSlug[]> => {
+  await db.connect()
+  const slugs = await Product.find().select('slug -_id').lean()
+  await db.disconnect();
+
+  return slugs
+}

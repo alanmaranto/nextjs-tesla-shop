@@ -6,7 +6,12 @@ import { dbProducts } from "database";
 import { initialData } from "database/products";
 import { useProducts } from "hooks";
 import { IProduct } from "interfaces";
-import { GetServerSideProps, NextPage } from "next";
+import {
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from "next";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import { Slideshow } from "../../../components/ui/Slideshow";
@@ -64,7 +69,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+/* export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { slug = "" } = params as { slug: string };
 
   const product = await dbProducts.getProductsBySlug(slug);
@@ -82,6 +87,41 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     props: {
       product,
     },
+  };
+}; */
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const data = await dbProducts.getAllProductSlugs();
+
+  return {
+    paths: data.map(({ slug }) => ({
+      params: {
+        slug,
+      },
+    })),
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { slug = "" } = params as { slug: string };
+
+  const product = await dbProducts.getProductsBySlug(slug);
+
+  if (!product) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      product,
+    },
+    revalidate: 86400,
   };
 };
 
