@@ -2,6 +2,7 @@ import {
   Card,
   CardActionArea,
   CardMedia,
+  Chip,
   Grid,
   Link,
   Typography,
@@ -34,9 +35,26 @@ export const ProductCard: FC<Props> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card>
-        <NextLink href={`/product/${product.slug}`} passHref prefetch={false} legacyBehavior>
+        <NextLink
+          href={`/product/${product.slug}`}
+          passHref
+          prefetch={false}
+          legacyBehavior
+        >
           <Link>
             <CardActionArea>
+              {product.inStock == 0 && (
+                <Chip
+                  color="primary"
+                  label="No available right now"
+                  sx={{
+                    position: "absolute",
+                    zIndex: 99,
+                    left: "10px",
+                    top: "10px",
+                  }}
+                />
+              )}
               <CardMedia
                 className="fadeIn"
                 component="img"

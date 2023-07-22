@@ -50,12 +50,13 @@ const ProductPage: NextPage<Props> = ({ product }) => {
                 sizes={product.sizes}
               />
             </Box>
-            {/* Add to cart */}
-            <Button color="secondary" className="circular-btn">
-              Add to cart
-            </Button>
-
-            {/* <Chip label="No stock" color="error" variant="outlined" /> */}
+            {product.inStock > 0 ? (
+              <Button color="secondary" className="circular-btn">
+                Add to cart
+              </Button>
+            ) : (
+              <Chip label="No stock" color="error" variant="outlined" />
+            )}
 
             {/* Description */}
             <Box sx={{ mt: 3 }}>
