@@ -2,10 +2,12 @@ import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { ShopLayout } from "components/layouts";
 import { SizeSelector } from "components/products";
 import { ItemCounter } from "components/ui";
+import { CartContext } from "context/cart";
 import { dbProducts } from "database";
 import { ICartProduct, IProduct, ISize } from "interfaces";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useContext, useState } from "react";
 import { Slideshow } from "../../../components/ui/Slideshow";
 
 interface Props {
@@ -24,6 +26,9 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     quantity: 1,
   });
 
+  const router = useRouter();
+  const { addProductToCart } = useContext(CartContext);
+
   const onSelectedSize = (size: ISize) => {
     setTempCartProduct((currentProduct) => ({
       ...currentProduct,
@@ -38,7 +43,12 @@ const ProductPage: NextPage<Props> = ({ product }) => {
     }));
   };
 
-  const onAddProduct = () => {};
+  const onAddProduct = () => {
+    if (!tempCartProduct.size) return;
+
+    addProductToCart(tempCartProduct);
+    router.push("/cart");
+  };
 
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
