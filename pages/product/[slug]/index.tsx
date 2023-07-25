@@ -66,7 +66,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
               ${product.price}
             </Typography>
             <Box sx={{ my: 2 }}>
-              <Typography variant="subtitle2">Quantity</Typography>
+              <Typography variant="subtitle2" component="div">Quantity</Typography>
               <ItemCounter
                 currentValue={tempCartProduct.quantity}
                 updatedQuantity={onUpdateQuantity}
@@ -91,7 +91,7 @@ const ProductPage: NextPage<Props> = ({ product }) => {
             )}
             {/* Description */}
             <Box sx={{ mt: 3 }}>
-              <Typography variant="subtitle2">Description</Typography>
+              <Typography variant="subtitle2" component="div">Description</Typography>
               <Typography variant="body2">{product.description}</Typography>
             </Box>
           </Box>

@@ -17,7 +17,7 @@ export const cartReducer = (
 ): CartState => {
   switch (action.type) {
     case "[Cart] - LoadCart from cookies | storage":
-      return { ...state };
+      return { ...state, cart: action.payload };
 
     case "[Cart] - Update products in cart":
       return { cart: [...action.payload] };

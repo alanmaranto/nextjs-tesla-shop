@@ -19,7 +19,7 @@ const CartPage = () => {
       <Grid container>
         <Grid item xs={12} sm={7}>
           {/* Cart List */}
-          <CartList editable />
+          {/* <CartList editable /> */}
         </Grid>
         <Grid item xs={12} sm={5}>
           <Card className="summary-card">
