@@ -3,8 +3,6 @@ import { FC, PropsWithChildren, useEffect, useReducer } from "react";
 import { CartContext, cartReducer } from "./";
 import Cookie from "js-cookie";
 
-type Props = {};
-
 export interface CartState {
   cart: ICartProduct[];
 }
@@ -13,7 +11,7 @@ const CART_INITIAL_STATE: CartState = {
   cart: [],
 };
 
-export const CartProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
+export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
   useEffect(() => {
