@@ -37,9 +37,7 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
-productSchema.index({ title: "text", tags: "text"})
+productSchema.index({ title: "text", tags: "text" });
 
-const Product: Model<IProduct> =
+export const Product: Model<IProduct> =
   models.Product || model("Product", productSchema);
-
-export default Product;
