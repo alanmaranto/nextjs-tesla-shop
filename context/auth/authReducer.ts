@@ -1,9 +1,9 @@
-import { ICartProduct, IUser } from "interfaces";
+import { IUser } from "interfaces";
 import { AuthState } from "./AuthProvider";
 
 type AuthActionType =
   | {
-      type: "[Auth] -Login";
+      type: "[Auth] - Login";
       payload: IUser;
     }
   | { type: "[Auth] - Logout" };
@@ -13,7 +13,7 @@ export const authReducer = (
   action: AuthActionType
 ): AuthState => {
   switch (action.type) {
-    case "[Auth] -Login":
+    case "[Auth] - Login":
       return { ...state, user: action.payload, isLoggedIn: true };
 
     case "[Auth] - Logout":

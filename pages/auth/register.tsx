@@ -8,12 +8,14 @@ import {
   Chip,
 } from "@mui/material";
 import { AuthLayout } from "components/layouts";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import { tesloApi } from "api";
 import { ErrorOutline } from "@mui/icons-material";
 import { validations } from "utils";
+import { AuthContext } from "context";
+import { useRouter } from "next/router";
 
 type FormData = {
   email: string;
@@ -23,6 +25,10 @@ type FormData = {
 
 const RegisterPage = () => {
   const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const { registerUser } = useContext(AuthContext);
+  const router = useRouter();
 
   const {
     register,
@@ -32,20 +38,19 @@ const RegisterPage = () => {
 
   const onRegister = async ({ email, password, name }: FormData) => {
     setShowError(false);
-    try {
-      const { data } = await tesloApi.post("/user/register", {
-        email,
-        password,
-        name,
-      });
-      const { token, user } = data;
-    } catch (error) {
-      console.log("Credentials error");
+
+    const { hasError, message } = await registerUser(name, email, password);
+
+    if (hasError) {
       setShowError(true);
+      setErrorMessage(message || ""); // message!
       setTimeout(() => {
         setShowError(false);
       }, 3000);
+      return;
     }
+
+    router.replace("/");
   };
   return (
     <AuthLayout title="Sign in">
