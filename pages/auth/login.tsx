@@ -4,6 +4,7 @@ import React from "react";
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
 import { validations } from "utils";
+import { tesloApi } from "api";
 
 type FormData = {
   email: string;
@@ -17,7 +18,14 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onLogin = (data: FormData) => {};
+  const onLogin = async ({ email, password }: FormData) => {
+    try {
+      const { data } = await tesloApi.post("/user/login", { email, password });
+      const { token, user } = data;
+    } catch (error) {
+      console.log("Credentials error");
+    }
+  };
 
   return (
     <AuthLayout title="Sign in">
