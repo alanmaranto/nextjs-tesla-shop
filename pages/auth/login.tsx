@@ -3,6 +3,7 @@ import { AuthLayout } from "components/layouts";
 import React from "react";
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
+import { validations } from "utils";
 
 type FormData = {
   email: string;
@@ -20,7 +21,7 @@ const LoginPage = () => {
 
   return (
     <AuthLayout title="Sign in">
-      <form onSubmit={handleSubmit(onLogin)}>
+      <form onSubmit={handleSubmit(onLogin)} noValidate>
         <Box sx={{ width: 350, padding: "10px 20px" }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -30,20 +31,30 @@ const LoginPage = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                error={!!errors.email}
+                helperText={errors.email?.message}
                 type="email"
-                label="email"
+                label="Email"
                 variant="filled"
                 fullWidth
-                {...register("email")}
+                {...register("email", {
+                  required: "Field required",
+                  validate: validations.isEmail,
+                })}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="password"
+                error={!!errors.password}
+                helperText={errors.password?.message}
+                label="Password"
                 type="password"
                 variant="filled"
                 fullWidth
-                {...register("password")}
+                {...register("password", {
+                  required: "Field required",
+                  minLength: { value: 6, message: "Min 6 characters" },
+                })}
               />
             </Grid>
             <Grid item xs={12}>
