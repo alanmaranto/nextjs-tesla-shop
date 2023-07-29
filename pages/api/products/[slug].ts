@@ -1,6 +1,6 @@
 import { IProduct } from "interfaces";
 import { db } from "database";
-import Product from "models/Product";
+import { Product } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
 
 type Data = { msg: string } | IProduct;

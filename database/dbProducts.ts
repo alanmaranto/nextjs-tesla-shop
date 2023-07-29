@@ -1,6 +1,6 @@
 import { db } from "database";
 import { IProduct } from "interfaces";
-import Product from "models/Product";
+import { Product } from "models";
 
 export const getProductsBySlug = async (
   slug: string
@@ -47,5 +47,5 @@ export const getAllProducts = async (): Promise<IProduct[]> => {
   const products = await Product.find().lean();
   await db.disconnect();
 
-  return JSON.parse(JSON.stringify(products));;
+  return JSON.parse(JSON.stringify(products));
 };
