@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import { db } from "database";
 import { User } from "models";
 import { NextApiRequest, NextApiResponse } from "next";
+import { jwt } from "utils";
 
 type Data =
   | {
@@ -50,10 +51,11 @@ const loginUser = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
       .json({ message: "Email or password invalid - PASSWORD" });
   }
 
-  const { role, name } = user;
+  const { _id, role, name } = user;
+  const token = jwt.signToken(_id, email);
 
   return res.status(200).json({
-    token: "",
+    token,
     user: {
       email,
       name,
