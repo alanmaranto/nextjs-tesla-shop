@@ -15,7 +15,7 @@ export interface MenuItem {
   label: string;
   icon: keyof typeof icons;
   properties?: Object;
-  href: string; // make mandaytory
+  href: string;
 }
 
 export const icons = {
@@ -31,8 +31,8 @@ export const icons = {
   VpnKeyOutlined,
 };
 
-export const clientMenu: MenuItem[] = [
-/*   {
+export const categoriesMenu: MenuItem[] = [
+  /*   {
     label: "Profile",
     icon: "AccountCircleOutlined",
   },
@@ -46,7 +46,7 @@ export const clientMenu: MenuItem[] = [
     properties: {
       sx: { display: { xs: "", sm: "none" } },
     },
-    href: "/category/men"
+    href: "/category/men",
   },
   {
     label: "Women",
@@ -54,8 +54,7 @@ export const clientMenu: MenuItem[] = [
     properties: {
       sx: { display: { xs: "", sm: "none" } },
     },
-    href: "/category/women"
-
+    href: "/category/women",
   },
   {
     label: "Kids",
@@ -63,9 +62,9 @@ export const clientMenu: MenuItem[] = [
     properties: {
       sx: { display: { xs: "", sm: "none" } },
     },
-    href: "/category/kids"
+    href: "/category/kids",
   },
-/*   {
+  /*   {
     label: "Sign In",
     icon: "VpnKeyOutlined",
   },
@@ -75,18 +74,20 @@ export const clientMenu: MenuItem[] = [
   }, */
 ];
 
-/* export const adminMenu: MenuItem[] = [
+export const adminMenu: MenuItem[] = [
   {
     label: "Products",
     icon: "CategoryOutlined",
+    href: "/category/kids",
   },
   {
     label: "Orders",
     icon: "ConfirmationNumberOutlined",
+    href: "/category/kids",
   },
   {
     label: "Users",
     icon: "AdminPanelSettings",
+    href: "/category/kids",
   },
 ];
- */

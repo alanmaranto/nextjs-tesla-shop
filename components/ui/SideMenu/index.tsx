@@ -11,10 +11,14 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import { SearchOutlined } from "@mui/icons-material";
-import { /* adminMenu, */ clientMenu, icons, MenuItem } from "./constants";
+import {
+  AccountCircleOutlined,
+  ConfirmationNumberOutlined,
+  SearchOutlined,
+} from "@mui/icons-material";
+import { adminMenu, categoriesMenu, icons, MenuItem } from "./constants";
 import { FC, useContext, useState } from "react";
-import { UiContext } from "context";
+import { AuthContext, UiContext } from "context";
 import { useRouter } from "next/router";
 
 interface Props {
@@ -47,6 +51,7 @@ export const SideMenu = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
+  const { user, isLoggedIn } = useContext(AuthContext);
   const router = useRouter();
 
   const onSearchTerm = () => {
@@ -86,10 +91,45 @@ export const SideMenu = () => {
               }
             />
           </ListItem>
-          <ListItems data={clientMenu} navigateTo={navigateTo} />
+          {isLoggedIn && (
+            <>
+              <ListItem button>
+                <ListItemIcon>
+                  <AccountCircleOutlined />
+                </ListItemIcon>
+                <ListItemText primary="Profile" />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon>
+                  <ConfirmationNumberOutlined />
+                </ListItemIcon>
+                <ListItemText primary="My orders" />
+              </ListItem>
+            </>
+          )}
+          <ListItems data={categoriesMenu} navigateTo={navigateTo} />
+          {isLoggedIn ? (
+            <ListItem button>
+              <ListItemIcon>
+                <AccountCircleOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Salir" />
+            </ListItem>
+          ) : (
+            <ListItem button>
+              <ListItemIcon>
+                <ConfirmationNumberOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Ingresar" />
+            </ListItem>
+          )}
           <Divider />
-          <ListSubheader>Admin Panel</ListSubheader>
-          {/* <ListItems data={adminMenu} navigate={navigateTo} /> */}
+          {user?.role === "admin" && (
+            <>
+              <ListSubheader>Admin Panel</ListSubheader>
+              <ListItems data={adminMenu} navigateTo={navigateTo} />
+            </>
+          )}
         </List>
       </Box>
     </Drawer>
