@@ -51,7 +51,7 @@ export const SideMenu = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { user, isLoggedIn, logout } = useContext(AuthContext);
   const router = useRouter();
 
   const onSearchTerm = () => {
@@ -109,14 +109,17 @@ export const SideMenu = () => {
           )}
           <ListItems data={categoriesMenu} navigateTo={navigateTo} />
           {isLoggedIn ? (
-            <ListItem button>
+            <ListItem button onClick={logout}>
               <ListItemIcon>
                 <AccountCircleOutlined />
               </ListItemIcon>
               <ListItemText primary="Salir" />
             </ListItem>
           ) : (
-            <ListItem button>
+            <ListItem
+              button
+              onClick={() => navigateTo(`/auth/login?p=${router.asPath}`)}
+            >
               <ListItemIcon>
                 <ConfirmationNumberOutlined />
               </ListItemIcon>

@@ -43,8 +43,8 @@ const LoginPage = () => {
         setShowError(false);
       }, 3000);
     }
-
-    router.replace("/");
+    const destination = router.query.p?.toString() || "/";
+    router.replace(destination);
   };
 
   return (
