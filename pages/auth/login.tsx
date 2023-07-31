@@ -42,6 +42,7 @@ const LoginPage = () => {
       setTimeout(() => {
         setShowError(false);
       }, 3000);
+      return
     }
     const destination = router.query.p?.toString() || "/";
     router.replace(destination);

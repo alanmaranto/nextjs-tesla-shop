@@ -10,7 +10,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { ShopLayout } from "components/layouts";
+import { GetServerSideProps } from "next";
 import React from "react";
+import { jwt } from "utils";
 
 const AddressPage = () => {
   return (
@@ -51,10 +53,37 @@ const AddressPage = () => {
         </Grid>
       </Grid>
       <Box sx={{ mt: 5, display: "flex", justifyContent: "center" }}>
-        <Button color="secondary" className="circular-btn" size="large">Checkout</Button>
+        <Button color="secondary" className="circular-btn" size="large">
+          Checkout
+        </Button>
       </Box>
     </ShopLayout>
   );
 };
 
 export default AddressPage;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const { token = "" } = req.cookies; // or headers
+  let isValidToken = false;
+
+  try {
+    await jwt.isValidToken(token);
+    isValidToken = true;
+  } catch (error) {
+    isValidToken = false;
+  }
+
+  if (!isValidToken) {
+    return {
+      redirect: {
+        destination: "/auth/login?p=/checkout/address",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
