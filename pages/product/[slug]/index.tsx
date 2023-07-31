@@ -2,7 +2,7 @@ import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { ShopLayout } from "components/layouts";
 import { SizeSelector } from "components/products";
 import { ItemCounter } from "components/ui";
-import { CartContext } from "context/cart";
+import { CartContext } from "context";
 import { dbProducts } from "database";
 import { ICartProduct, IProduct, ISize } from "interfaces";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";

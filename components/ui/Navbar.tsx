@@ -18,8 +18,7 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import { UiContext } from "context";
-import { CartContext } from "context/cart";
+import { UiContext, CartContext } from "context";
 
 export const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
