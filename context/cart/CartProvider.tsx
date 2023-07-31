@@ -1,5 +1,5 @@
 import { ICartProduct } from "interfaces";
-import { FC, PropsWithChildren, useEffect, useReducer } from "react";
+import { FC, PropsWithChildren, useEffect, useReducer, useRef } from "react";
 import { CartContext, cartReducer } from "./";
 import Cookies from "js-cookie";
 
@@ -24,6 +24,8 @@ const CART_INITIAL_STATE: CartState = {
 export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
 
+  const isReloading = useRef(true);
+
   useEffect(() => {
     try {
       const cookieProducts = Cookies.get("cart")
@@ -42,7 +44,11 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    Cookies.set("cart", JSON.stringify(state.cart));
+    if (isReloading.current) {
+      isReloading.current = false;
+    } else {
+      Cookies.set("cart", JSON.stringify(state.cart));
+    }
   }, [state.cart]);
 
   useEffect(() => {
