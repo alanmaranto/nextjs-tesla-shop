@@ -8,9 +8,25 @@ import {
   Typography,
 } from "@mui/material";
 import { CartList, OrderSummary } from "components/cart";
+import { CartContext } from "context";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 import { ShopLayout } from "../../components/layouts/ShopLayout";
 
 const CartPage = () => {
+  const { isLoaded, cart } = useContext(CartContext);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && cart.length === 0) {
+      router.replace("/cart/empty");
+    }
+  }, [isLoaded, cart, router]);
+
+  if (!isLoaded || cart.length === 0) {
+    return <></>;
+  }
+
   return (
     <ShopLayout title="Cart - 3" pageDescription="Cart">
       <Typography variant="h1" component="h1">

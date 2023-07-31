@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ItemCounter } from "components/ui";
-import { CartContext } from "context/cart";
+import { CartContext } from "context";
 import { ICartProduct } from "interfaces";
 import NextLink from "next/link";
 import { FC, useContext } from "react";
