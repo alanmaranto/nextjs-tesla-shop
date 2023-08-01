@@ -82,9 +82,12 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
+  const removeAllCookies = () => {
+    Object.keys(Cookies.get()).forEach((cookie) => Cookies.remove(cookie));
+  };
+
   const logout = () => {
-    Cookies.remove("token");
-    Cookies.remove("cart");
+    removeAllCookies();
     router.reload();
   };
 
