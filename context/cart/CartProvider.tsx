@@ -10,6 +10,18 @@ export interface CartState {
   tax: number;
   total: number;
   isLoaded: boolean;
+  shippingAddress?: ShippingAddress;
+}
+
+export interface ShippingAddress {
+  firstName: string;
+  lastName: string;
+  address: string;
+  address2: string;
+  zip: string;
+  city: string;
+  country: string;
+  phone: string;
 }
 
 const CART_INITIAL_STATE: CartState = {
@@ -19,6 +31,7 @@ const CART_INITIAL_STATE: CartState = {
   tax: 0,
   total: 0,
   isLoaded: false,
+  shippingAddress: undefined,
 };
 
 export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -70,6 +83,25 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
     };
     dispatch({ type: "[Cart] - Update order summary", payload: orderSummary });
   }, [state.cart]);
+
+  useEffect(() => {
+    if (Cookies.get("firstName")) {
+      const shippingAddress = {
+        firstName: Cookies.get("firstName") || "",
+        lastName: Cookies.get("lastName") || "",
+        address: Cookies.get("address") || "",
+        address2: Cookies.get("address2") || "",
+        zip: Cookies.get("zip") || "",
+        city: Cookies.get("city") || "",
+        country: Cookies.get("country") || "",
+        phone: Cookies.get("phone") || "",
+      };
+      dispatch({
+        type: "[Cart] - LoadAddress from cookies",
+        payload: shippingAddress,
+      });
+    }
+  }, []);
 
   const addProductToCart = (product: ICartProduct) => {
     const { _id, size, quantity } = product;

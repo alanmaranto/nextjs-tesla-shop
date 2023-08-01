@@ -28,8 +28,8 @@ const SummaryPage = () => {
               <Typography variant="h2">Summary (3 products) </Typography>
               <Divider sx={{ my: 1 }} />
               <Box display="flex" justifyContent="space-between">
-              <Typography variant="subtitle1">Shipping address</Typography>
-                <NextLink href="/checkout/address" passHref>
+                <Typography variant="subtitle1">Shipping address</Typography>
+                <NextLink href="/checkout/address" passHref legacyBehavior>
                   <Link underline="always">Edit</Link>
                 </NextLink>
               </Box>
