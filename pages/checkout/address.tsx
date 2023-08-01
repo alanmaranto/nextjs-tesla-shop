@@ -8,10 +8,11 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { ShopLayout } from "components/layouts";
+import { CartContext } from "context";
 import Cookies from "js-cookie";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { jwt } from "utils";
 import { countries } from "utils/countries";
@@ -27,27 +28,28 @@ type FormData = {
   phone: string;
 };
 
-const getAddressFromCookies = ():FormData => {
+const getAddressFromCookies = (): FormData => {
   return {
-    firstName: Cookies.get('firstName')|| "",
-    lastName: Cookies.get('lastName')|| "",
-    address: Cookies.get('address')|| "",
-    address2: Cookies.get('address2')|| "",
-    zip: Cookies.get('zip')|| "",
-    city: Cookies.get('city')|| "",
-    country: Cookies.get('country')|| "",
-    phone: Cookies.get('phone')|| "",
-  }
-}
+    firstName: Cookies.get("firstName") || "",
+    lastName: Cookies.get("lastName") || "",
+    address: Cookies.get("address") || "",
+    address2: Cookies.get("address2") || "",
+    zip: Cookies.get("zip") || "",
+    city: Cookies.get("city") || "",
+    country: Cookies.get("country") || "",
+    phone: Cookies.get("phone") || "",
+  };
+};
 
 const AddressPage = () => {
   const router = useRouter();
+  const { updateAddress } = useContext(CartContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: getAddressFromCookies()
+    defaultValues: getAddressFromCookies(),
   });
 
   const saveAddressInCookie = (data: FormData) => {
@@ -59,6 +61,7 @@ const AddressPage = () => {
 
   const onSubmit = (data: FormData) => {
     saveAddressInCookie(data);
+    updateAddress(data);
     router.push("/checkout/summary");
   };
 

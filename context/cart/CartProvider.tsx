@@ -146,6 +146,10 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
     dispatch({ type: "[Cart] - Remove product in cart", payload: product });
   };
 
+  const updateAddress = (address: ShippingAddress) => {
+    dispatch({ type: "[Cart] - Update address", payload: address });
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -153,6 +157,7 @@ export const CartProvider: FC<PropsWithChildren> = ({ children }) => {
         addProductToCart,
         updateCartQuantity,
         removeCartProduct,
+        updateAddress,
       }}
     >
       {children}

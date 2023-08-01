@@ -40,7 +40,7 @@ const SummaryPage = () => {
               <Typography>+52 558193930</Typography>
               <Divider sx={{ my: 1 }} />
               <Box display="flex" justifyContent="end">
-                <NextLink href="/cart" passHref>
+                <NextLink href="/cart" passHref legacyBehavior>
                   <Link underline="always">Edit</Link>
                 </NextLink>
               </Box>
