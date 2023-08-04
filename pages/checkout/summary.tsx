@@ -11,13 +11,23 @@ import {
 import { CartList, OrderSummary } from "components/cart";
 import { ShopLayout } from "../../components/layouts/ShopLayout";
 import NextLink from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "context";
 import { countries } from "utils/countries";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const SummaryPage = () => {
+  const router = useRouter();
   const { shippingAddress, numberOfItems } = useContext(CartContext);
-  if (!shippingAddress) {
+
+  useEffect(() => {
+    if (numberOfItems === 0 || !Cookies.get("firstName")) {
+      router.push("/checkout/address");
+    }
+  }, [router]);
+
+  if (numberOfItems === 0 || !shippingAddress) {
     return <></>;
   }
 
