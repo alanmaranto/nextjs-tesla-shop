@@ -123,22 +123,22 @@ const LoginPage = () => {
               justifyContent="end"
             >
               <Divider sx={{ width: "100%", mb: 2 }} />
-              {Object.values(providers).map((prov: any) => {
-                if (prov.id === "credentials")
-                  return <div key="credentials"></div>;
-                return (
-                  <Button
-                    key={prov.id}
-                    variant="outlined"
-                    fullWidth
-                    color="primary"
-                    sx={{ mb: 1 }}
-                    onClick={() => signIn(prov.id)}
-                  >
-                    {prov.name}
-                  </Button>
-                );
-              })}
+              {Object.values(providers)
+                .filter((provider: any) => provider.id !== "credentials")
+                .map((prov: any) => {
+                  return (
+                    <Button
+                      key={prov.id}
+                      variant="outlined"
+                      fullWidth
+                      color="primary"
+                      sx={{ mb: 1 }}
+                      onClick={() => signIn(prov.id)}
+                    >
+                      {prov.name}
+                    </Button>
+                  );
+                })}
             </Grid>
           </Grid>
         </Box>
