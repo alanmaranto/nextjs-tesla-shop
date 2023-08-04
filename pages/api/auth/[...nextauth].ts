@@ -21,8 +21,10 @@ export default NextAuth({
         },
       },
       async authorize(credentials) {
-
-        return await dbUsers.checkUserEmailPassword(credentials!.email, credentials!.password);
+        return await dbUsers.checkUserEmailPassword(
+          credentials!.email,
+          credentials!.password
+        );
       },
     }),
     GithubProvider({
@@ -32,15 +34,18 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, account, user }) {
-      console.log('token', token);
-      console.log('account', account);
-      console.log('user', user);
+      console.log("token", token);
+      console.log("account", account);
+      console.log("user", user);
       if (account) {
-        token.accessToken = account.access_token
+        token.accessToken = account.access_token;
 
         switch (account.type) {
           case "oauth":
-            // TODO: create of verify is user exists in db
+            token.user = await dbUsers.oAuthToDbUser(
+              user?.email || "",
+              user?.name || ""
+            );
             break;
           case "credentials":
             token.user = user;
