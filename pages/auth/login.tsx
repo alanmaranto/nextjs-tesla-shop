@@ -15,6 +15,8 @@ import { validations } from "utils";
 import { ErrorOutline } from "@mui/icons-material";
 import { AuthContext } from "context";
 import { useRouter } from "next/router";
+import { getSession, signIn } from "next-auth/react";
+import { GetServerSideProps } from "next";
 
 type FormData = {
   email: string;
@@ -35,7 +37,9 @@ const LoginPage = () => {
   const onLogin = async ({ email, password }: FormData) => {
     setShowError(false);
 
-    const isValidLogin = await loginUser(email, password);
+    await signIn("credentials", { email, password });
+
+    /*     const isValidLogin = await loginUser(email, password);
 
     if (!isValidLogin) {
       setShowError(true);
@@ -45,7 +49,7 @@ const LoginPage = () => {
       return
     }
     const destination = router.query.p?.toString() || "/";
-    router.replace(destination);
+    router.replace(destination); */
   };
 
   return (
@@ -123,5 +127,25 @@ const LoginPage = () => {
     </AuthLayout>
   );
 };
+
+
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+  const session = await getSession({ req });
+  const { p = '/'} = query;
+
+  if (session) {
+    return {
+      redirect: {
+        destination: p.toString(),
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {},
+  };
+};
+
 
 export default LoginPage;
